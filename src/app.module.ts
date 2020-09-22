@@ -1,8 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseConfiguration } from 'config/database.configuration';
-import { AppController } from './app.controller';
+import { KorisnikController } from './controllers/api/korisnik.controller';
+import { AppController } from './controllers/app.controller';
 import { Korisnik } from './entities/korisnik.entity';
+import { Ljubimac } from './entities/ljubimac.entity';
+import { Rasa } from './entities/rasa.entity';
+import { Slika } from './entities/slika.entity';
+import { Vrsta } from './entities/vrsta.entity';
 import { KorisnikService } from './services/korisnik/korisnik.service';
 
 
@@ -16,14 +21,21 @@ import { KorisnikService } from './services/korisnik/korisnik.service';
       password: DatabaseConfiguration.password,
       database: DatabaseConfiguration.database,
       entities: [
-          Korisnik
+          Korisnik,
+          Ljubimac,
+          Rasa,
+          Slika,
+          Vrsta
       ]
     }),
     TypeOrmModule.forFeature([
         Korisnik
     ])
   ],
-  controllers: [AppController],
+  controllers: [
+    AppController,
+    KorisnikController,
+  ],
   providers: [KorisnikService],
 })
 export class AppModule {}
